@@ -12,9 +12,8 @@ public class Signalization : MonoBehaviour
     private float _targetVolume;
     private float _changeStep = 0.1f;
     private float _timeToWait = 0.2f;
-
-    public float MinVolume { get; private set; } = 0f;
-    public float MaxVolume { get; private set; } = 1f;
+    private float _minVolume = 0f;
+    private float _maxVolume = 1f;
 
     private void Awake()
     {
@@ -42,7 +41,7 @@ public class Signalization : MonoBehaviour
 
     private void OnThiefEntered(bool isThiefInHome)
     {
-        _targetVolume = isThiefInHome ? MaxVolume : MinVolume;
+        _targetVolume = isThiefInHome ? _maxVolume : _minVolume;
 
         if (_changeVolumeCoroutine != null)
             StopCoroutine(_changeVolumeCoroutine);

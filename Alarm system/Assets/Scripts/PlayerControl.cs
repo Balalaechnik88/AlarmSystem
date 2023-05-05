@@ -1,32 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float maxSpeed = 10f;
-    public bool flipRight = true;
-   
+    [SerializeField] private float _speed;
+
     private void Update()
     {
-        float move = Input.GetAxis("Horizontal");
-        GetComponent<Rigidbody2D>().velocity = new Vector2 (move* maxSpeed,GetComponent<Rigidbody2D>().velocity.y);
-
-        if (move > 0 && !flipRight)
+        if (Input.GetKey(KeyCode.D))
         {
-            Flip();
+            transform.Translate(_speed *Time.deltaTime,0,0);
         }
-        else if(move < 0 && flipRight)
+
+        if (Input.GetKey(KeyCode.A))
         {
-            Flip();
+            transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
         }
     }
 
-    private void Flip()
-    {
-        flipRight = !flipRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
-    }
+    
 }
